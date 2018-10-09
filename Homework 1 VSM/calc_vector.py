@@ -34,21 +34,29 @@ def calc_vector(articles):
 		vector = []
 		for word in all_words:
 			if word in tf.keys():
-				vector.append(tf[word]*idf[word])
+				vector.append(tf[word] * idf[word])
 			else:
 				vector.append(0.0)
 		vectors.append(vector)
 	return vectors
 
-# print(calc_vector([['sadf','asdf','asdf'],['sdf']]))
-# print(calc_idf([['sadf','asdf'],['sadf']]))
-articles = []
-f = open('processed_articles.txt','r')
-for line in f.readlines():
-	articles.append(line.split())
-vectors = calc_vector(articles)
-f = open('vectors.txt','w')
-for vector in vectors:
-	for value in vector:
-		f.write(' ' + str(value))
-	f.write('\n')
+def calc_distance(vec1,vec2):
+	# Cosine Similarity
+	dot = 0.0
+	d1 = 0.0
+	d2 = 0.0
+	for i in range(len(vec1)):
+		x1 = float(vec1[i])
+		x2 = float(vec2[i])
+		d1 += x1 * x1
+		d2 += x2 * x2
+		dot += x1 * x2
+	import math
+	return dot / math.sqrt(d1) / math.sqrt(d2)
+
+if __name__ == '__main__':
+	from preprocess import read_arrays, save_arrays
+	articles = read_arrays('processed_articles.txt')
+	vectors = calc_vector(articles)
+	# print(calc_distance(vectors[0],vectors[1]))
+	save_arrays(vectors,'vectors.txt')

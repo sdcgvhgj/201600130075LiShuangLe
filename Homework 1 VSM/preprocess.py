@@ -1,15 +1,25 @@
-def preprocess(str):
+
+def process(str):
 	from nltk.tokenize import word_tokenize
 	from nltk.corpus import stopwords
 	from nltk.stem import PorterStemmer
+	
 	# Tokenization
 	tokenized_words = word_tokenize(str)	
+	
 	# Stemming and Normalization
 	ps = PorterStemmer()
 	stemmed_words = [ps.stem(x) for x in tokenized_words]
+	
 	# Stopword Filtering
 	stop_words = set(stopwords.words('english'))
-	filtered_words = [x for x in stemmed_words if not x in stop_words and x.isalpha()]
+	def has_alpha(str):
+		for x in str:
+			if(x.isalpha()):
+				return True
+		return False
+	filtered_words = [x for x in stemmed_words if not x in stop_words and has_alpha(x)]
+	
 	return filtered_words
 
 def get_articles(path):
@@ -30,8 +40,21 @@ def get_articles(path):
 			f.close()
 	return articles
 
-# print(preprocess("Hello Mr. Smith, how are you doing today? worked The weather is great, and Python is awesome. The sky is pinkish-blue. You shouldn't eat cardboard."))
-articles = get_articles(r'D:\files\勉強\大三\IR\20news-18828\alt.atheism')
-# print(articles)
-processed_articles = [preprocess(x) for x in articles]
-# print(processed_articles)
+def save_arrays(arrs,path):
+	f = open(path,'w')
+	for arr in arrs:
+		for x in arr:
+			f.write(str(x) + ' ')
+		f.write('\n')
+
+def read_arrays(path):
+	f = open(path,'r')
+	arrs = []
+	for line in f.readlines():
+		arrs.append(line.split())
+	return arrs
+
+if __name__ == '__main__':
+	articles = get_articles(r'D:\files\勉強\大三\IR\20news-18828\alt.atheism')
+	processed_articles = [process(x) for x in articles]
+	save_arrays(processed_articles,'processed_articles.txt')
