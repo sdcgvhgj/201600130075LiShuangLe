@@ -5,7 +5,6 @@ def get_articles(path,percentage): # 读取文章
 	stop_words = set(stopwords.words('english'))
 	ps = PorterStemmer()
 
-
 	import os
 	train_articles = {}
 	test_articles = {}
@@ -23,7 +22,6 @@ def get_articles(path,percentage): # 读取文章
 			stemmed_words = [ps.stem(x) for x in normalized_words]
 			filtered_words = [x for x in stemmed_words if x and not x in stop_words]
 			words = filtered_words
-
 			if(i < percentage * num):
 				articles1.append(words)
 			else:
@@ -71,7 +69,7 @@ def classify(train_articles,test_articles):
 				for word in article:
 					if not word in count[test_topic].keys():
 						count[test_topic][word] = 0
-					p += math.log(count[test_topic][word] + 1) - math.log(words_in_topics[test_topic] + len(all_words))
+					p += math.log(count[test_topic][word] + 0.1) - math.log(words_in_topics[test_topic] + 0.1*len(all_words))
 				p += math.log(len(train_articles[test_topic]))
 				if p > max_p:
 					max_p = p
@@ -99,3 +97,4 @@ if __name__ == '__main__':
 	articles = get_articles(r'D:\files\勉強\大三\IR\20news-18828',0.8)
 	result = classify(articles[0],articles[1])
 	check_result(result)
+	# 正确率 86.37935621175845%
