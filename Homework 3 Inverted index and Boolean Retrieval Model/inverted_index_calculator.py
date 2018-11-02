@@ -1,17 +1,5 @@
-def process(articles):
-	articles_ = []
-	for article in articles:
-		articles_.append(word_tokenize(article))
-	return articles_
-
-def save_arrays(arrs,path):
-	f = open(path,'w')
-	for arr in arrs:
-		for x in arr:
-			f.write(str(x) + ' ')
-		f.write('\n')
-
 def get_articles(path):
+	# 读取json格式的tweet并提取其内容并返回分词后结果
 	import json
 	from nltk.tokenize import word_tokenize
 	articles = []
@@ -21,6 +9,7 @@ def get_articles(path):
 	return articles
 
 def calc_inverted_index(articles):
+	# 计算inverted-index
 	inverted_index1 = {}
 	inverted_index2 = {}
 	for i in range(len(articles)):
@@ -35,11 +24,10 @@ def calc_inverted_index(articles):
 
 def main():
 	path1 = r'D:\files\勉強\大三\IR\data\Homework3-tweets\tweets.txt'
-	# path2 = r'D:\files\勉強\大三\IR\data\Homework3-tweets\articles.txt'
 	articles = get_articles(path1)
 	inverted_index = calc_inverted_index(articles)
-	print(len(articles))
-	print(articles[1])
+	# print(len(articles))
+	# print(articles[1])
 	print(inverted_index['ten'])
 
 if __name__ == '__main__':
