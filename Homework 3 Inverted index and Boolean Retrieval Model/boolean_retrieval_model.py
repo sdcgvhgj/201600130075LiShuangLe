@@ -1,4 +1,5 @@
 def union(l1,l2):
+	# 计算两个列表l1和l2的并集
 	i = 0
 	j = 0
 	ans = []
@@ -22,6 +23,7 @@ def union(l1,l2):
 	return ans
 
 def intersect(l1,l2):
+	# 计算两个列表l1和l2的交集
 	i = 0
 	j = 0
 	ans = []
@@ -37,8 +39,8 @@ def intersect(l1,l2):
 	return ans
 
 def calc(str,inverted_index):
+	# 根据查询str和inverted-index返回查找结果
 	str = str.strip()
-	# print(str)
 	ans = []
 	if '|' in str:
 		for s in str.split('|'):
@@ -59,9 +61,8 @@ def main():
 	path = r'D:\files\勉強\大三\IR\data\Homework3-tweets\tweets.txt'
 	from inverted_index_calculator import calc_inverted_index, get_articles
 	articles = get_articles(path)
-	print(articles[384])
 	inverted_index = calc_inverted_index(articles)
-	s = 'fuck | shit'
+	s = input("input : ")
 	res = calc(s,inverted_index)
 	print(res)
 	for i in res:
