@@ -3,7 +3,7 @@ def get_articles(path):
 	import json
 	from nltk.tokenize import word_tokenize
 	articles = []
-	f = open(path,'r')
+	f = open(path,'r',encoding='utf-8',errors='ignore')
 	for line in f.readlines():
 		articles.append(word_tokenize(json.loads(line)['text']))
 	return articles
