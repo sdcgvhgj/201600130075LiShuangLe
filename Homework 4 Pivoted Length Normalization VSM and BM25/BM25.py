@@ -72,7 +72,7 @@ def BM25(M,avdl,df,inverted_index,doc_len,querys,k,b):
 		for word in cnt.keys():
 			if word not in inverted_index.keys():
 				continue
-			for tweet_id,num in inverted_index['to'].items():
+			for tweet_id,num in inverted_index[word].items():
 				if tweet_id not in score.keys():
 					score[tweet_id] = 0
 				score[tweet_id] += cnt[word] * (k + 1) * num / (num + k * (1 - b + b * doc_len[tweet_id] / avdl)) * math.log(1.0 * (M + 1) / df[word])
@@ -97,3 +97,4 @@ if __name__ == '__main__':
 	(num,avdl,df,inverted_index,doc_len) = calc_inverted_index(tweets)
 	ans = BM25(num,avdl,df,inverted_index,doc_len,querys,100,0.5)
 	write_result('result.txt',ans)
+	#result : MAP = 0.44820987854433175, NDCG = 0.6521315470248232
