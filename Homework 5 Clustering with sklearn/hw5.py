@@ -79,17 +79,14 @@ def main():
 	# X = X[:500]
 	# Y = Y[:500]
 	X = feature_extract(X)
-	# test_KMeans(X,Y)
-	# test_AffinityPropagation(X,Y)
-	# test_MeanShift(X,Y)
-	
+	test_KMeans(X,Y)
+	test_AffinityPropagation(X,Y)
+	test_MeanShift(X,Y)
 	test_SpectralClustering(X,Y)
-
-	# test_WardHierarchicalClustering(X,Y)
-	# test_AgglomerativeClustering(X,Y)
-	
-	# test_DBSCAN(X,Y)
-	# test_GaussianMixture(X,Y)
+	test_WardHierarchicalClustering(X,Y)
+	test_AgglomerativeClustering(X,Y)
+	test_DBSCAN(X,Y)
+	test_GaussianMixture(X,Y)
 
 if __name__ == '__main__':
 	main()
